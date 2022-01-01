@@ -14,6 +14,7 @@ def color_text(text, color):
 def check_status(url, expected_status):
 
     indent = "  "
+    new_line = "\n"
 
     try:
         res = urllib.request.urlopen(url)
@@ -24,8 +25,8 @@ def check_status(url, expected_status):
         else:
             result = color_text("Alert", "red")
 
-        print("[{}] {}".format(result, url))
-        print(indent + "code: {}\n".format(actual_status))
+        print("[{}] ".format(result) + url)
+        print(indent + "code: {}".format(actual_status) + new_line)
 
     except urllib.error.HTTPError as e:
         actual_status = e.code
@@ -36,17 +37,17 @@ def check_status(url, expected_status):
         else:
             result = color_text("Alert", "red")
 
-        print("[{}] {}".format(result, url))
+        print("[{}] ".format(result) + url)
         print(indent + "code: {}".format(actual_status))
-        print(indent + "reason: {}\n".format(error_reason))
+        print(indent + "reason: {}".format(error_reason) + new_line)
 
     except urllib.error.URLError as e:
         error_reason = e.reason
         result = color_text("Alert", "red")
 
-        print("[{}] {}".format(result, url))
+        print("[{}] ".format(result) + url)
         print(indent + "code: N/A")
-        print(indent + "reason: {}\n".format(error_reason))
+        print(indent + "reason: {}".format(error_reason) + new_line)
 
 
 for i in range(len(data.items)):
